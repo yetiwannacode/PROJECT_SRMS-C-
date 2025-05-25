@@ -157,16 +157,12 @@ void loadFromFile() {
     int roll;
     char name[50];
     float marks;
-    int line = 0;
 
-    while (1) {
-        int result = fscanf(fp, "%d,%49[^,],%f\n", &roll, name, &marks);
-        if (result == 3) {
-            Student* new_student = createStudent(roll, name, marks);
-            new_student->next = head;
-            head = new_student;
-        }
-}
+   while (fscanf(fp, "%d,%49[^,],%f\n", &roll, name, &marks) == 3) {
+        Student* new_student = createStudent(roll, name, marks);
+        new_student->next = head;
+        head = new_student;
+    }
         fclose(fp);
 }
 void freeStudents()

@@ -166,8 +166,8 @@ void loadFromFile() {
             new_student->next = head;
             head = new_student;
         }
-    fclose(fp);
 }
+        fclose(fp);
 }
 void freeStudents()
 {

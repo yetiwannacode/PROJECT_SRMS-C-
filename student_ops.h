@@ -9,5 +9,7 @@ void deleteStudent();
 void saveToFile();
 void loadFromFile();
 void freeStudents();
+void rankByMarks();
+void viewRanks();
 
 #endif

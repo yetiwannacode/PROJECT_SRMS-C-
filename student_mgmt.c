@@ -13,7 +13,8 @@ int main()
         printf("3. Search for a Student in the records:\n");
         printf("4. Edit Student details:\n");
         printf("5. Delete Student from the records:\n");
-        printf("6. Save your file and exit:\n");
+        printf("6. View the rankings\n");
+        printf("7. Save your file and exit:\n");
         printf("Enter your desirable action by the number\n");
         scanf("%d", &Option);
         getchar();
@@ -25,14 +26,15 @@ int main()
             case 3: searchStudent(); break;
             case 4: editStudent(); break;
             case 5: deleteStudent(); break;
-            case 6: saveToFile();
+            case 6: viewRanks(); break;
+            case 7: saveToFile();
                     freeStudents();
                     printf("Exiting the file...\n");
                     break;
             default: printf("Please choose a number from the above 6 only.\n");
         }
     }
-    while(Option != 6);
+    while(Option != 7);
 
     return 0;
 }

@@ -31,6 +31,39 @@ void addStudent()
     getchar();
     printf("Enter the name of the student: ");
     scanf("%49[^\n]", name);
+    getchar();
+    Student* temp = head;
+    int rollExists = 0;
+    int nameExists = 0;
+
+    while (temp != NULL) {
+        if (temp->roll == roll) {
+            rollExists = 1;
+        }
+        if (strcmp(temp->name, name) == 0) {
+            nameExists = 1;
+        }
+        temp = temp->next;
+    }
+
+    if (rollExists) {
+        printf("A student with roll number %d already exists. Cannot add duplicate.\n", roll);
+        return;
+    }
+
+    if (nameExists) {
+        printf("A student with the same name \"%s\" already exists.\n", name);
+        printf("Do you still want to add this student? (y/n): ");
+
+        char choice;
+        scanf(" %c", &choice);
+        getchar();
+
+        if (choice != 'y' || choice != 'Y') {
+            printf("Student not added.\n");
+            return;
+        }
+    }
     printf("Enter the marks: ");
     scanf("%f", &marks);
     Student* new_student= createStudent(roll, name, marks);
@@ -165,6 +198,57 @@ void loadFromFile() {
     }
         fclose(fp);
 }
+
+void rankByMarks()
+{
+    if(head== NULL || head->next== NULL)
+    {
+        return;
+    }
+    Student* i;
+    Student* j;
+    for(i=head; i != NULL; i= i->next)
+    {
+        for(j= i->next; j!= NULL; j=j->next)
+        {
+            if (i->marks < j->marks) 
+            {
+                int temp_roll = i->roll;
+                float temp_marks = i->marks;
+                char temp_name[50];
+                strcpy(temp_name, i->name);
+
+                i->roll = j->roll;
+                i->marks = j->marks;
+                strcpy(i->name, j->name);
+
+                j->roll = temp_roll;
+                j->marks = temp_marks;
+                strcpy(j->name, temp_name);
+            }
+        }
+    }
+}
+
+void viewRanks()
+{
+    rankByMarks();
+    int rank=1;
+    Student* temp= head;
+    if(temp == NULL)
+    {
+        printf("No records found\n");
+        return;
+    }
+    printf("\n---Student rankings---\n");
+    while(temp!= NULL)
+    {
+        printf("Rank: %d  Roll No: %d, Name: %s, Marks: %.2f\n", rank, temp->roll, temp->name, temp->marks);
+        temp= temp->next;
+        rank++;
+    }
+}
+
 void freeStudents()
 {
     Student* temp;
